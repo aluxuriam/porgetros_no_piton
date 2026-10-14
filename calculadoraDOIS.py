@@ -46,7 +46,7 @@ def juroscompostos(capital, taxa, tempo):                                       
 
 janela = tk.Tk()
 janela.title("Calculadora")
-janela.geometry("400x640")
+janela.geometry("400x700")
 
 
 #inicio = True
