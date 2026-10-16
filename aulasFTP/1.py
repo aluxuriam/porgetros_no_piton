@@ -1,11 +1,22 @@
 import tkinter as tk
 
 def calcular_media():
-    nota1 = float(entrada1.get())
-    nota2 = float(entrada2.get())
-    nota3 = float(entrada3.get())
-    nota4 = float(entrada4.get())
+    nota1 = (entrada1.get())
+    nota2 = (entrada2.get())
+    nota3 = (entrada3.get())
+    nota4 = (entrada4.get())
+    
+    try:
+        nota1 = float(nota1)
+        nota2 = float(nota2)
+        nota3 = float(nota3)
+        nota4 = float(nota4)
+    except ValueError:
+        resultado.config(text="Digite notas validas!")
+        return
+      
     media = (nota1 + nota2 + nota3 + nota4) / 4
+    
     if media >= 6:
         resultado.config(text=f"Média: {media:.2f} - Aprovado")
     else:
