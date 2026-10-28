@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - lanchonete</title> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="caixa">
+        <h2>Lanchonete</h2>
+        <p>Cadastre sua nova senha</p>
+        <input type="password" id="senha" placeholder="Nova senha">
+        <input type="password" id="confirmar" placeholder="Confirmar nova senha">
+        <button type="salvar" disabled>Aguardando link de recuperação</button>
+        <p id="mensagem"></p>
+    </div>
+
+    <script type="module">
+        import {createClient} from "https://esm.sh/@supabase/supabase-js@2";
+
+        const supabase = createClient (
+            "https://brtnpqaouwvorgafoeou.supabase.co",
+            "sb_publishable_2Kmn9iU3VOePFGLi6QvcPA_QDa1D7ab"
+        );
+
+        const botao = document.getElementById("salvar");
+        const mensagem = document.getElementById("mensagem");
+
+    
+        supabase. auth.onAuthStatechange((evento)=>{
+            if (evento ==="PASSWORD_RECOVERY") {
+                botao.disabled = false;
+                botao.textContent = "Salvar nova senha";
+                mensagem.textcontent = "Link validado. Digite a nova senha.";
+            }
+        });
+
+        botao.addEventListener("click", async ()=> {
+            const senha = document.getElementById("senha").value;
+            const confirmar = document.getElementById("confirmar").value;
+
+            if (senha.length < 14){ mensagem. textContent = "Use pelo menos 14 caracteres.";
+        return;
+        }
+
+        if (senha !== confirmar) {
+        mensagem.textContent = "As senhas não coincidem.";
+        return;
+        }
+
+        const { error } = await supabase.auth.updateUser({ password: senha });
+
+        if (error) {
+            mensagem.textContent = "Erro: " + error.message;
+        } else {
+            mensagem.textContent = "Senha atualizada com sucesso.";
+            document.getElementById("senha").value = "";
+            document.getElementById("confirmar").value = "";
+            botao.disabled = true;
+            await supabase.auth.signOut();
+
+        }
+    });
+    </script>
+</body> 
+</html>
