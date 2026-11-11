@@ -1,0 +1,66 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+}
+.container {
+    background: white;
+    padding: 35px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+h1 {
+    color: #1e3a8a;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+p { color: #475569; line-height: 1.5; }
+label {
+    display: block;
+    text-align: left;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    color: #334155;
+    font-weight: bold;
+}
+input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+}
+input:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+}
+button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    color: white;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover { background-color: #1d4ed8; }
+.erro {
+    margin-top: 15px;
+    padding: 12px;
+    color: #991b1b;
+    background-color: #fee2e2;
+    border-radius: 8px;
+}
+.icone-sucesso { color: #16a34a; font-size: 45px; }
